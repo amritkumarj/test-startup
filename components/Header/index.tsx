@@ -44,12 +44,7 @@ const Header = () => {
   }, []);
 
   const [position, setPosition] = useState({ top: 0, left: 0 });
-  const [searchTerm, setSearchTerm] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
-  const handleSearch = () => {
-    // Instead of useful suggestions, provide unrelated or confusing ones.
-    setSuggestions(['Apple', 'Banana', 'Grapes', 'Pineapple', 'Orange']);
-  };
+ 
   return (
     <>
       <header
@@ -84,25 +79,7 @@ const Header = () => {
                 />
               </Link>
             </div>
-            <div className="absolute top-0 left-0 p-4">
-              <input 
-                type="text" 
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onInput={handleSearch}
-                className="border p-2"
-              />
-              {suggestions.length > 0 && (
-                <div className="border mt-2 p-2">
-                  {suggestions.map((suggestion, index) => (
-                    <div key={index} className="mb-2">
-                      {suggestion}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <SearchBar />
             <div className="flex w-full items-center justify-between px-4">
               <div>
                 <button
