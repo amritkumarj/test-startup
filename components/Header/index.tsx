@@ -34,7 +34,14 @@ const Header = () => {
       setOpenIndex(index);
     }
   };
+  const [time, setTime] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime((prevTime) => prevTime + 1); // Increase time every second
+    }, 1000);
 
+    return () => clearInterval(interval); // Clear interval on component unmount
+  }, []);
   return (
     <>
       <header
@@ -93,6 +100,9 @@ const Header = () => {
                     }`}
                   />
                 </button>
+                <div className="absolute top-0 right-0 p-4">
+              <span className="text-red-500">Timer: {time} seconds</span>
+            </div>
                 <nav
                   id="navbarCollapse"
                   className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white py-4 px-6 duration-300 dark:border-body-color/20 dark:bg-dark lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
