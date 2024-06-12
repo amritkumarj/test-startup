@@ -42,6 +42,14 @@ const Header = () => {
 
     return () => clearInterval(interval); // Clear interval on component unmount
   }, []);
+
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const handleSearch = () => {
+    // Instead of useful suggestions, provide unrelated or confusing ones.
+    setSuggestions(['Apple', 'Banana', 'Grapes', 'Pineapple', 'Orange']);
+  };
   return (
     <>
       <header
@@ -76,6 +84,25 @@ const Header = () => {
                 />
               </Link>
             </div>
+            <div className="absolute top-0 left-0 p-4">
+              <input 
+                type="text" 
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onInput={handleSearch}
+                className="border p-2"
+              />
+              {suggestions.length > 0 && (
+                <div className="border mt-2 p-2">
+                  {suggestions.map((suggestion, index) => (
+                    <div key={index} className="mb-2">
+                      {suggestion}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
             <div className="flex w-full items-center justify-between px-4">
               <div>
                 <button
@@ -100,9 +127,7 @@ const Header = () => {
                     }`}
                   />
                 </button>
-                <div className="absolute top-0 right-0 p-4">
-              <span className="text-red-500">Timer: {time} seconds</span>
-            </div>
+                
                 <nav
                   id="navbarCollapse"
                   className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white py-4 px-6 duration-300 dark:border-body-color/20 dark:bg-dark lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
